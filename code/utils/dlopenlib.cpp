@@ -28,6 +28,7 @@ DlOpenLib::DlOpenLib()
 {
 	mDLFile.next = &mDLFile;
 	mDLFile.prev = &mDLFile;
+	mLib = NULL;
 }
 
 /*************************************************

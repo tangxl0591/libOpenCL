@@ -20,6 +20,8 @@ TARGET_VENDOR_TARGET		:= BIT64
 
 
 LOCAL_CFLAGS += -D_ANDROID_
+LOCAL_CFLAGS += -D_MTK_
+# LOCAL_CFLAGS += -D_QCOM_
 
 ######################################################
 #						WARNING						 #

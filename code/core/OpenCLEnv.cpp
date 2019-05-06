@@ -46,10 +46,24 @@ OpenCLEnv::OpenCLEnv()
 ,mDevices(CL_DEVICE_TYPE_GPU)
 {
 	mDlOpenLib = new DlOpenLib();
-	mDlOpenLib->addlib(_ADRENO_BIT32_PATH_, TARGET_BIT32, PLATFORM_ADRENO);
-	mDlOpenLib->addlib(_MALI_BIT32_PATH_, TARGET_BIT32, PLATFORM_MAIL);
-	mDlOpenLib->addlib(_ADRENO_BIT64_PATH_, TARGET_BIT64, PLATFORM_ADRENO);
-	mDlOpenLib->addlib(_MALI_BIT64_PATH_, TARGET_BIT64, PLATFORM_MAIL);
+
+	#ifdef _MTK_
+	mDlOpenLib->addlib("/vendor/lib64/libOpenCL.so", TARGET_BIT64, PLATFORM_MAIL);
+	mDlOpenLib->addlib("/vendor/lib/libOpenCL.so", TARGET_BIT32, PLATFORM_MAIL);	
+
+	mDlOpenLib->addlib("/system/lib64/egl/libGLES_mali.so", TARGET_BIT64, PLATFORM_MAIL);
+	mDlOpenLib->addlib("/system/lib/egl/libGLES_mali.so", TARGET_BIT32, PLATFORM_MAIL);		
+	#endif
+
+	
+	#ifdef _QCOM_
+	mDlOpenLib->addlib("/vendor/lib64/libOpenCL.so", TARGET_BIT64, PLATFORM_ADRENO);
+	mDlOpenLib->addlib("/vendor/lib/libOpenCL.so", TARGET_BIT32, PLATFORM_ADRENO);		
+
+	mDlOpenLib->addlib("/system/vendor/lib64/libOpenCL.so", TARGET_BIT64, PLATFORM_ADRENO);
+	mDlOpenLib->addlib("/system/vendor/lib/libOpenCL.so", TARGET_BIT32, PLATFORM_ADRENO);		
+	#endif
+	
 	mOpenCLHandle.mHandle = mDlOpenLib->openlib();
 	if(mOpenCLHandle.mHandle != NULL)
 	{ 
@@ -77,6 +91,10 @@ OpenCLEnv::OpenCLEnv()
 		mOpenCLHandle.m_clEnqueueNDRangeKernel = (cl_int (*)(cl_command_queue, cl_kernel, cl_uint, const size_t *, const size_t *,const size_t *, cl_uint, const cl_event *, cl_event *))(dlsym (mOpenCLHandle.mHandle, _CL_ENQUEUENDRKERNEL_));
 		mOpenCLHandle.m_clCreateContextFromType = (cl_context (*)(const cl_context_properties *, cl_device_type, void (*)(const char*, const void *, size_t, void *), void *, cl_int *))(dlsym (mOpenCLHandle.mHandle, _CL_CREATECONTEXTFORMTYPE_));
 	}
+	else
+	{
+		ms_error("dlopen OpenCL fail");
+	}
 }
 
 OpenCLEnv::~OpenCLEnv()
@@ -92,7 +110,7 @@ cl_int OpenCLEnv::CreateContext()
 {
 	cl_int err = CL_SUCCESS;
 
-    /** Create the context */
+    /** Create the context */  
     if(mOpenCLHandle.m_clCreateContext)
     {
         mContext = mOpenCLHandle.m_clCreateContext(0, 1, &mDeviceID, NULL, NULL, &err);
@@ -145,6 +163,7 @@ cl_int OpenCLEnv::GetPlatformInfo()
 	cl_platform_id* platforms = NULL;
 	
 	/** Get the platform Number*/
+	
     if(mOpenCLHandle.m_clGetPlatformIDs)
     {
         err = mOpenCLHandle.m_clGetPlatformIDs(0, NULL, &mNumPlatform);
@@ -166,6 +185,11 @@ cl_int OpenCLEnv::GetPlatformInfo()
             }
         }
     }
+	else
+	{
+		ms_error("m_clGetPlatformIDs Exiting ...");
+	}
+	
 	platforms = (cl_platform_id *)malloc(sizeof(cl_platform_id)*mNumPlatform);
     if(platforms == NULL)
     {
@@ -249,27 +273,27 @@ cl_int OpenCLEnv::GetPlatformInfo()
 	/** Get the device*/
     if(mOpenCLHandle.m_clGetDeviceIDs)
     {
-            int Count = 0;
-            switch(mDevices)
-            {
-            case CL_DEVICE_TYPE_CPU:
-                    Count = mDeviceCPU;
-                    break;
+        int Count = 0;
+        switch(mDevices)
+        {
+        case CL_DEVICE_TYPE_CPU:
+                Count = mDeviceCPU;
+                break;
 
-            case CL_DEVICE_TYPE_GPU:
-                    Count = mDeviceGPU;
-                    break;
+        case CL_DEVICE_TYPE_GPU:
+                Count = mDeviceGPU;
+                break;
 
-            default:
-                    break;
-            }
+        default:
+                break;
+        }
 
-            err = mOpenCLHandle.m_clGetDeviceIDs(mPlatformID, mDevices, Count,&mDeviceID, &mNumDevice);
-            if(CL_SUCCESS != err)
-            {
-                    ms_error("clGetDeviceIDs failed: error: %d\n", err);
-                    goto ErrorPlatForm;
-            }
+        err = mOpenCLHandle.m_clGetDeviceIDs(mPlatformID, mDevices, Count,&mDeviceID, &mNumDevice);
+        if(CL_SUCCESS != err)
+        {
+                ms_error("clGetDeviceIDs failed: error: %d\n", err);
+                goto ErrorPlatForm;
+        }
     }
 	
 ErrorPlatForm:

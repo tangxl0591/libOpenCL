@@ -27,11 +27,6 @@ extern "C" {
 #define ADRENO_NAME                     "QUALCOMM"
 #define MALI_NAME                       "ARM"
 
-#define _MALI_BIT64_PATH_               "/system/lib64/egl/libGLES_mali.so"   
-#define _MALI_BIT32_PATH_               "/system/lib/egl/libGLES_mali.so"   
-#define _ADRENO_BIT64_PATH_             "/system/vendor/lib64/libOpenCL.so"
-#define _ADRENO_BIT32_PATH_             "/system/vendor/lib/libOpenCL.so"
-
 #define _CL_GETPLATFORMIDS_             "clGetPlatformIDs"
 #define _CL_GETPLATFORMINFO_            "clGetPlatformInfo"
 #define _CL_GETDEVICEIDS_               "clGetDeviceIDs"

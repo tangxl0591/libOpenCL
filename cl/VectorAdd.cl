@@ -20,5 +20,5 @@ __kernel void VectorAdd(__global const float4 *a, __global const float4 *b,
 {
     int gid = get_global_id(0);
 
-    result[gid] = a[gid] + b[gid];
+    result[gid] = a[gid]*10 + b[gid];
 }
