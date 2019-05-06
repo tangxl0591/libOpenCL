@@ -43,7 +43,7 @@ public:
     TARGET gettarget(){return mTarget;};
     PLATFORM_TYPE getplatform(){return mPlatform;};
 private:
-    void *mLib = NULL;
+    void *mLib;
     TARGET mTarget;
     PLATFORM_TYPE mPlatform;
     struct list_head mDLFile;

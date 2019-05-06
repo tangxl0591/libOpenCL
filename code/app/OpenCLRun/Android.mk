@@ -28,7 +28,7 @@ LOCAL_C_INCLUDES += \
 
 LOCAL_SRC_FILES := OpenCLRun.cpp	\
 
-LOCAL_SHARED_LIBRARIES := libdl libmslog libOpenCL_Client
+LOCAL_SHARED_LIBRARIES := libmslog libOpenCL_Client
 
 LOCAL_LDLIBS := -llog 
  

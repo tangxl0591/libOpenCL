@@ -32,7 +32,7 @@ cl_int OpenCLInterface::OpenCLEnqueueBuf(PEnqueueBuffer Buffer)
     cl_int err = CL_DEVICE_NOT_FOUND;
     if(mOpenCLHandle == NULL || NULL == Buffer)
     {
-            return CL_DEVICE_NOT_FOUND;
+		return CL_DEVICE_NOT_FOUND;
     }
 
     if(mOpenCLHandle->m_clEnqueueReadBuffer)
@@ -42,40 +42,42 @@ cl_int OpenCLInterface::OpenCLEnqueueBuf(PEnqueueBuffer Buffer)
 
         switch(err)
         {
-        case CL_INVALID_COMMAND_QUEUE:
-                ms_message("%s CL_INVALID_COMMAND_QUEUE",__func__);
-                break;
-        case CL_INVALID_CONTEXT:
-                ms_message("%s CL_INVALID_CONTEXT",__func__);
-                break;
-        case CL_INVALID_MEM_OBJECT:
-                ms_message("%s CL_INVALID_MEM_OBJECT",__func__);
-                break;
-        case CL_INVALID_VALUE:
-                ms_message("%s CL_INVALID_VALUE",__func__);
-                break;
-        case CL_INVALID_EVENT_WAIT_LIST:
-                ms_message("%s CL_INVALID_EVENT_WAIT_LIST",__func__);
-                break;
-        case CL_MISALIGNED_SUB_BUFFER_OFFSET:
-                ms_message("%s CL_MISALIGNED_SUB_BUFFER_OFFSET",__func__);
-                break;
-        case CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST:
-                ms_message("%s CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST",__func__);
-                break;
-        case CL_MEM_OBJECT_ALLOCATION_FAILURE:
-                ms_message("%s CL_MEM_OBJECT_ALLOCATION_FAILURE",__func__);
-                break;
-        case CL_OUT_OF_RESOURCES:
-                ms_message("%s CL_OUT_OF_RESOURCES",__func__);
-                break;
-        case CL_OUT_OF_HOST_MEMORY:
-                ms_message("%s CL_OUT_OF_HOST_MEMORY",__func__);
-                break;
-        default:
-                break;
+	        case CL_INVALID_COMMAND_QUEUE:
+	                ms_message("%s CL_INVALID_COMMAND_QUEUE",__func__);
+	                break;
+	        case CL_INVALID_CONTEXT:
+	                ms_message("%s CL_INVALID_CONTEXT",__func__);
+	                break;
+	        case CL_INVALID_MEM_OBJECT:
+	                ms_message("%s CL_INVALID_MEM_OBJECT",__func__);
+	                break;
+	        case CL_INVALID_VALUE:
+	                ms_message("%s CL_INVALID_VALUE",__func__);
+	                break;
+	        case CL_INVALID_EVENT_WAIT_LIST:
+	                ms_message("%s CL_INVALID_EVENT_WAIT_LIST",__func__);
+	                break;
+	        case CL_MISALIGNED_SUB_BUFFER_OFFSET:
+	                ms_message("%s CL_MISALIGNED_SUB_BUFFER_OFFSET",__func__);
+	                break;
+	        case CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST:
+	                ms_message("%s CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST",__func__);
+	                break;
+	        case CL_MEM_OBJECT_ALLOCATION_FAILURE:
+	                ms_message("%s CL_MEM_OBJECT_ALLOCATION_FAILURE",__func__);
+	                break;
+	        case CL_OUT_OF_RESOURCES:
+	                ms_message("%s CL_OUT_OF_RESOURCES",__func__);
+	                break;
+	        case CL_OUT_OF_HOST_MEMORY:
+	                ms_message("%s CL_OUT_OF_HOST_MEMORY",__func__);
+	                break;
+	        default:
+	                break;
         }
 	}
+
+	return CL_SUCCESS;
 }
 
 cl_int OpenCLInterface::OpenCLSetKernelArg(cl_kernel kernel, cl_uint index, size_t size, const void * arg)

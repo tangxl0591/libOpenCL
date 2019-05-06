@@ -34,7 +34,7 @@ include $(JPEG_PATH)/Cflags.mk
 
 LOCAL_SRC_FILES := OpenCLYuv.cpp	\
 
-LOCAL_SHARED_LIBRARIES := libdl libmslog libOpenCL_Client libMsUtil 
+LOCAL_SHARED_LIBRARIES := libmslog libOpenCL_Client libMsUtil 
 
 LOCAL_LDLIBS := -llog 
  

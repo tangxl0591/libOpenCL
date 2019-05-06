@@ -36,7 +36,7 @@ LOCAL_SRC_FILES := dlopenlib.cpp utils.cpp jpeg.cpp\
 
 LOCAL_STATIC_LIBRARIES := libjpeg-turbo
 
-LOCAL_SHARED_LIBRARIES := libdl libmslog
+LOCAL_SHARED_LIBRARIES := libmslog
 
 LOCAL_MODULE:= libMsUtil
 

@@ -28,7 +28,7 @@ LOCAL_C_INCLUDES += \
 
 LOCAL_SRC_FILES := OpenCLEnv.cpp OpenCLKernel.cpp OpenCLMem.cpp OpenCLInterface.cpp\
 
-LOCAL_SHARED_LIBRARIES := libdl libmslog
+LOCAL_SHARED_LIBRARIES := libmslog
 
 LOCAL_STATIC_LIBRARIES := libMsUtil
 

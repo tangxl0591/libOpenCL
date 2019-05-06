@@ -12,6 +12,7 @@
  	 Modification:  Created file
  	 
 *********************************************************/
+#include <unistd.h>
 #include "config.h"
 #include "mslog.h"
 
